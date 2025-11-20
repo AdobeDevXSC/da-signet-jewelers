@@ -388,7 +388,7 @@ header nav .nav-tools-panel {
   position: absolute;
   box-shadow: var(--shape-shadow-2);
   background: var(--background-color);
-  top: var(--nav-height);
+  top: 64px;
   right: 0;
   width: 100%;
   display: none;
@@ -449,6 +449,10 @@ header nav .nav-tools .search-wrapper .icon {
 }
 
 @media (min-width: 900px) {
+  header nav .nav-tools-panel {
+  top: var(--nav-height);
+}
+
   header nav .nav-tools .default-content-wrapper:nth-of-type(1) {
     margin-right: auto;
     margin-left: auto;
@@ -585,7 +589,7 @@ header .nav-search-input .search_autocomplete .popover-container {
   }
 
   header nav .nav-tools-panel {
-    top: calc(-12px + var(--nav-height));
+    top: 50px;
   }
 
   header nav .minicart-panel {
