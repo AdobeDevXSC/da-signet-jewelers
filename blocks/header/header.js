@@ -519,6 +519,10 @@ export default async function decorate(block) {
   });
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
+
+  const sectionNavSections = nav.querySelector('.nav-sections');
+  nav.appendChild(sectionNavSections);
+
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));

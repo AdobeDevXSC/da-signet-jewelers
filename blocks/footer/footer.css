@@ -1,73 +1,89 @@
 footer {
-    background-color: var(--color-neutral-100);
-    font: var(--type-body-2-default-font);
-    letter-spacing: var(--type-body-2-default-letter-spacing);
+  background-color: #fff;
+  width: 100%;
+  z-index: 2;
+  color: #000;
 }
 
 footer .footer > div {
-    margin: auto;
-    max-width: 1200px;
-    padding: 40px 24px 24px;
+  margin: auto;
+  max-width: 1400px;
+  padding: 40px 24px 24px;
+    border-top: 2px solid #000;
 }
 
 footer .footer p {
-    margin: 0;
+  margin: 0;
 }
 
-.storeview-switcher-button {
-    background: transparent;
-    padding-left: 0;
+footer .footer img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-.storeview-modal-storeview-title {
-    margin-bottom: var(--spacing-xxbig);
-    padding-inline-start: var(--spacing-xbig);
+footer .footer a {
+  color: #ffffff;
+  text-decoration: none;
 }
 
-.modal .close-button {
-    top: 40px !important;
-    right: 40px !important;
+footer .footer a:hover {
+  color: var(--main-accent-color);
+}
+ 
+footer .footer .section:nth-child(1) .default-content-wrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.storeview-single-store {
-    list-style-type: none;
+footer .footer .section:nth-child(1) .default-content-wrapper > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.storeview-selection .storeview-multiple-stores {
-    list-style-image: url("../../icons/chevron-right.svg");
-    list-style-position: inside;
+footer .footer .section:nth-child(1) .default-content-wrapper ul > li {
+  max-width: 220px;
+  padding: 0 10px;
 }
 
-.storeview-selection > li {
-    margin-bottom: var(--spacing-small);
+footer .footer .section:nth-child(1) .default-content-wrapper ul > li p {
+  font-weight: 700;
+  font-size: 12px;
+  border-bottom: 1px solid #000;
 }
 
-.storeview-multiple-stores > ul {
-    position: relative;
-    width: 100%;
+footer .footer .section:nth-child(1) .default-content-wrapper ul > li > ul > li {
+  font-weight: 400;
+  font-size: 11px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  line-height: 1.5;
 }
 
-.storeview-multiple-stores > ul > li {
-    list-style: none;
-    display: none;
+@media (width >= 900px) {
+  footer .footer > div {
+    padding: 50px 32px;
+  }
+
+  footer .footer .section:nth-child(1) .default-content-wrapper > ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+  }
 }
 
-.storeview-multiple-stores[aria-expanded="true"] {
-    list-style-image: url("../../icons/chevron-down.svg");
+footer .footer .section:nth-child(2) .default-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
 }
 
-.storeview-multiple-stores[aria-expanded="true"] > ul {
-    padding-left: 0;
-}
-
-.storeview-multiple-stores[aria-expanded="true"] > ul > li {
-    display: block;
-    list-style-type: none;
-    margin-bottom: var(--spacing-small);
-}
-
-@media (min-width: 900px) {
-    footer .footer > div {
-        padding: 40px 32px 24px;
-    }
+footer .footer .section:nth-child(2) .default-content-wrapper p {
+  font-size: 12px;
 }
