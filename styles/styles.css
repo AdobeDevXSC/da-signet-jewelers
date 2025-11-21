@@ -311,7 +311,7 @@ button.button {
   text-align: center;
   text-decoration: none;
   background-color: transparent;
-  color: var(--color-neutral-50);
+  color: #000;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -330,7 +330,7 @@ button.button:focus {
 main a.button.disabled,
 button.button:disabled,
 button.button:disabled:hover {
-  background-color: var(--color-neutral-300);
+  background-color: var(--color-neutral-200);
   cursor: unset;
 }
 
@@ -341,11 +341,12 @@ button.button.primary {
   background: #fff;
   color: #000;
   text-decoration: none;
+  border: 1px solid #000;
 }
 
 main a.button.primary:hover,
 button.button.primary:hover {
-  background: #ccc;
+  background: #ebebeb;
 }
 
 
