@@ -5,8 +5,11 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
+  padding: 2rem;
   min-height: 300px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .hero h1 {
@@ -30,8 +33,21 @@
   height: 100%;
 }
 
+.hero > div {
+  color: white;
+}
+
+.hero p {
+  margin: 0;
+}
+
+.hero h1 {
+  margin: 1rem 0;
+}
+
 @media (min-width: 900px) {
   .hero {
-    padding: 40px 32px;
+    padding: 4rem 5rem;
+    min-height: 700px;
   }
 }
