@@ -74,7 +74,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 };
 
 export default function decorate(block) {
-  const link = block.querySelector(':scope div:nth-child(1) > div a').innerHTML.trim();
+  const link = block.querySelector(':scope div:nth-child(1) > div a').href.trim();
 
   // Remove link text from the block
   block.querySelector(':scope div:nth-child(1)').remove();
