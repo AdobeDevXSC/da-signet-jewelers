@@ -1,33 +1,31 @@
 {
   "public": {
     "default": {
-      "commerce-core-endpoint": "https://www.aemshop.net/graphql",
-      "commerce-endpoint": "https://www.aemshop.net/cs-graphql",
-      "commerce-assets-enabled": false,
+      "commerce-core-endpoint": "https://edge-sandbox-graph.adobe.io/api/a8101baa-b235-4d8e-88c4-734e5f054b56/graphql",
+      "commerce-endpoint": "https://edge-sandbox-graph.adobe.io/api/a8101baa-b235-4d8e-88c4-734e5f054b56/graphql",
+      "commerce-assets-enabled": true,
+      "commerce-assets-quality": 95,
       "headers": {
         "all": {
-          "Store": "default"
+          "Store": "citisignal_us"
         },
         "cs": {
-          "Magento-Store-Code": "main_website_store",
-          "Magento-Store-View-Code": "default",
-          "Magento-Website-Code": "base",
+          "Magento-Customer-Group": "b6589fc6ab0dc82cf12099d1c2d40ab994e8410c",
+          "Magento-Store-Code": "citisignal_store",
+          "Magento-Store-View-Code": "citisignal_us",
+          "Magento-Website-Code": "citisignal",
           "x-api-key": "4dfa19c9fe6f4cccade55cc5b3da94f7",
-          "Magento-Environment-Id": "f38a0de0-764b-41fa-bd2c-5bc2f3c7b39a"
+          "Magento-Environment-Id": "G8b9X9oVp44YqwE4mw21H4"
         }
       },
       "analytics": {
         "base-currency-code": "USD",
-        "environment": "Testing",
-        "environment-id": "f38a0de0-764b-41fa-bd2c-5bc2f3c7b39a",
-        "store-code": "main_website_store",
+        "environment": "Production",
         "store-id": 1,
         "store-name": "Main Website Store",
-        "store-url": "https://www.aemshop.net",
-        "store-view-code": "default",
+        "store-url": "https://main--accs-citisignal--demo-system-stores.aem.live/",
         "store-view-id": 1,
         "store-view-name": "Default Store View",
-        "website-code": "base",
         "website-id": 1,
         "website-name": "Main Website"
       },
@@ -35,6 +33,18 @@
         "picker": {
            "rootCategory": "YOUR_ROOT_CATEGORY_ID"
          }
+      }
+    },
+    "/citisignal-fr/": {
+      "headers": {
+        "all": {
+          "Store": "citisignal_fr"
+        },
+        "cs": {
+          "Magento-Store-Code": "citisignal_store",
+          "Magento-Website-Code": "citisignal",
+          "Magento-Store-View-Code": "citisignal_fr"
+        }
       }
     }
   }
