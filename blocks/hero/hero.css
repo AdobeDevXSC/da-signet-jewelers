@@ -45,6 +45,10 @@
   margin: 1rem 0;
 }
 
+.hero p.button-container a {
+  color: inherit;
+}
+
 @media (min-width: 900px) {
   .hero {
     padding: 4rem 5rem;

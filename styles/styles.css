@@ -339,7 +339,7 @@ button.button.primary {
   border-radius: 0;
   padding: 1em 1.25em;
   background: #fff;
-  color: #000;
+  color: #000 !important;
   text-decoration: none;
   border: 1px solid #000;
 }
@@ -410,9 +410,10 @@ main > .section {
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: 1480px;
   margin: auto;
   padding: 0 var(--spacing-medium);
+  box-sizing: border-box;
 }
 
 main > .section:first-of-type {

@@ -55,7 +55,6 @@ function getVideoElement(source, autoplay, background) {
 }
 
 const loadVideoEmbed = (block, link, autoplay, background) => {
-  console.log("link: ", link);
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   if (isYoutube) {
     const url = new URL(link);
