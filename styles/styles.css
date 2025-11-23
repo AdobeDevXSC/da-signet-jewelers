@@ -301,7 +301,7 @@ button.button {
   max-width: 100%;
   margin: var(--spacing-small) 0;
   border: var(--shape-border-width-3) solid transparent;
-  border-radius: var(--shape-border-radius-3);
+  border-radius: 0;
   padding: 0;
   font: var(--type-button-2-font);
   letter-spacing: var(--type-button-2-letter-spacing);
@@ -433,6 +433,67 @@ main .section.highlight {
   margin: 0;
   padding: var(--spacing-xbig) 0;
 }
+
+main .section[data-full-width="true"] > div {
+  max-width: 100%;
+  padding: 0;
+}
+
+main .section[data-text-alignment="left"] > div {
+    text-align: left;
+}
+
+main .section[data-text-alignment="center"] > div {
+    text-align: center;
+}
+
+main .section[data-text-alignment="right"] > div {
+    text-align: right;
+}
+
+/* section metadata - block level */
+main .block.horizontal-alignment-left  {
+  display: flex;
+  justify-content: flex-start;
+}
+
+main .block.horizontal-alignment-center {
+  display: flex;
+  justify-content: center;
+}
+
+main .block.horizontal-alignment-right {
+  display: flex;
+  justify-content: flex-end;
+} 
+
+main .block.vertical-alignment-left  {
+  display: flex;
+  align-items: flex-start;
+}
+
+main .block.vertical-alignment-center {
+  display: flex;
+  align-items: center;
+}
+
+main .block.vertical-alignment-right {
+  display: flex;
+  align-items: flex-end;
+} 
+
+main .block.text-alignment-left  {
+  text-align: left;
+}
+
+main .block.text-alignment-center  {
+  text-align: center;
+}
+
+main .block.text-alignment-right  {
+  text-align: right;
+}
+
 
 /* Base Design System Tokens */
 .dropin-design.dropin-design {

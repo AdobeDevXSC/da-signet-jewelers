@@ -578,6 +578,50 @@ async function loadBlock(block) {
   return block;
 }
 
+function addSectionMetadata(section) {
+  if (!section) return;
+
+  const metadataMap = {
+    'background-color': 'background',
+    'text-color': 'color',
+    'min-height': 'minHeight',
+  };
+
+  const blocks = section.querySelectorAll('div.block');
+  if (!blocks.length) return;
+
+  // Process each block inside the section
+  blocks.forEach((block) => {
+    const classList = [];
+
+    [...section.attributes].forEach(({ name, value }) => {
+      if (name.startsWith('data-') && name !== 'data-section-status' && name !== 'data-date') {
+        const key = name.replace(/^data-/, ''); // Remove "data-" prefix
+
+        if (metadataMap[key]) {
+          // Apply styles if the key exists in metadataMap
+          block.style[metadataMap[key]] = value;
+        } else {
+          // Convert unknown data-* attributes into class names
+          classList.push(`${key}-${value}`);
+        }
+      }
+
+      // overlay
+      if (name === 'data-overlay-background-color') {
+        const key = name.replace(/^data-/, ''); // Remove "data-" prefix
+        const overlayElement = block.querySelector('div:nth-child(2) > div');
+        overlayElement.style[metadataMap[key]] = value;
+      }
+    });
+
+    // Add the generated classes to the block
+    if (classList.length) {
+      block.classList.add(...classList);
+    }
+  });
+}
+
 /**
  * Decorates a block.
  * @param {Element} block The block element
@@ -593,6 +637,8 @@ function decorateBlock(block) {
     blockWrapper.classList.add(`${shortBlockName}-wrapper`);
     const section = block.closest('.section');
     if (section) section.classList.add(`${shortBlockName}-container`);
+    //custom
+    addSectionMetadata(section)
   }
 }
 
