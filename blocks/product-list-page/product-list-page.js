@@ -21,11 +21,19 @@ import { fetchPlaceholders, getProductLink } from '../../scripts/commerce.js';
 // Initializers
 import '../../scripts/initializers/search.js';
 import '../../scripts/initializers/wishlist.js';
+import { getStructuredContentData, insertPromoBanner } from './plp-utils.js';
 
 export default async function decorate(block) {
   const labels = await fetchPlaceholders();
-
   const config = readBlockConfig(block);
+
+  const addPromoBanner = config?.promobannerpath;
+  const promoBannerPath = config?.promobannerpath;
+
+  let promoBannerData = {};
+  if (addPromoBanner) {
+    promoBannerData = await getStructuredContentData(promoBannerPath);
+  }
 
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
@@ -48,39 +56,27 @@ export default async function decorate(block) {
   block.innerHTML = '';
   block.appendChild(fragment);
 
-  // Add category url path to block for enrichment
   if (config.urlpath) {
     block.dataset.category = config.urlpath;
   }
 
-  // Get variables from the URL
   const urlParams = new URLSearchParams(window.location.search);
-  // get all params
-  const {
-    q,
-    page,
-    sort,
-    filter,
-  } = Object.fromEntries(urlParams.entries());
+  const { q, page, sort, filter } = Object.fromEntries(urlParams.entries());
 
-  // Request search based on the page type on block load
+  // Initial search request
   if (config.urlpath) {
-    // If it's a category page...
     await search({
-      phrase: '', // search all products in the category
+      phrase: '',
       currentPage: page ? Number(page) : 1,
       pageSize: 8,
       sort: sort ? getSortFromParams(sort) : [{ attribute: 'position', direction: 'DESC' }],
       filter: [
-        { attribute: 'categoryPath', eq: config.urlpath }, // Add category filter
+        { attribute: 'categoryPath', eq: config.urlpath },
         { attribute: 'visibility', in: ['Search', 'Catalog, Search'] },
         ...getFilterFromParams(filter),
       ],
-    }).catch(() => {
-      console.error('Error searching for products');
-    });
+    }).catch(() => console.error('Error searching for products'));
   } else {
-    // If it's a search page...
     await search({
       phrase: q || '',
       currentPage: page ? Number(page) : 1,
@@ -90,9 +86,7 @@ export default async function decorate(block) {
         { attribute: 'visibility', in: ['Search', 'Catalog, Search'] },
         ...getFilterFromParams(filter),
       ],
-    }).catch(() => {
-      console.error('Error searching for products');
-    });
+    }).catch(() => console.error('Error searching for products'));
   }
 
   const getAddToCartButton = (product) => {
@@ -116,31 +110,19 @@ export default async function decorate(block) {
     return button;
   };
 
+  // Render all dropins
   await Promise.all([
-    // Sort By
     provider.render(SortBy, {})($productSort),
-
-    // Pagination
     provider.render(Pagination, {
-      onPageChange: () => {
-        // scroll to the top of the page
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      },
+      onPageChange: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
     })($pagination),
-
-    // View Facets Button
     UI.render(Button, {
       children: labels.Global?.Filters,
       icon: Icon({ source: 'Burger' }),
       variant: 'secondary',
-      onClick: () => {
-        $facets.classList.toggle('search__facets--visible');
-      },
+      onClick: () => $facets.classList.toggle('search__facets--visible'),
     })($viewFacets),
-
-    // Facets
     provider.render(Facets, {})($facets),
-    // Product List
     provider.render(SearchResults, {
       routeProduct: (product) => getProductLink(product.urlKey, product.sku),
       slots: {
@@ -148,7 +130,6 @@ export default async function decorate(block) {
           const { product, defaultImageProps } = ctx;
           const anchorWrapper = document.createElement('a');
           anchorWrapper.href = getProductLink(product.urlKey, product.sku);
-
           tryRenderAemAssetsImage(ctx, {
             alias: product.sku,
             imageProps: defaultImageProps,
@@ -162,16 +143,17 @@ export default async function decorate(block) {
         ProductActions: (ctx) => {
           const actionsWrapper = document.createElement('div');
           actionsWrapper.className = 'product-discovery-product-actions';
-          // Add to Cart Button
+
           const addToCartBtn = getAddToCartButton(ctx.product);
           addToCartBtn.className = 'product-discovery-product-actions__add-to-cart';
-          // Wishlist Button
+
           const $wishlistToggle = document.createElement('div');
           $wishlistToggle.classList.add('product-discovery-product-actions__wishlist-toggle');
           wishlistRender.render(WishlistToggle, {
             product: ctx.product,
             variant: 'tertiary',
           })($wishlistToggle);
+
           actionsWrapper.appendChild(addToCartBtn);
           actionsWrapper.appendChild($wishlistToggle);
           ctx.replaceWith(actionsWrapper);
@@ -180,18 +162,20 @@ export default async function decorate(block) {
     })($productList),
   ]);
 
-  // Listen for search results (event is fired before the block is rendered; eager: true)
+  // Insert promo banner after initial render
+  if (addPromoBanner) {
+    insertPromoBanner(promoBannerData);
+  }
+
+  // Listen for search results (before render)
   events.on('search/result', (payload) => {
     const totalCount = payload.result?.totalCount || 0;
-
     block.classList.toggle('product-list-page--empty', totalCount === 0);
 
-    // Results Info
     $resultInfo.innerHTML = payload.request?.phrase
       ? `${totalCount} results found for <strong>"${payload.request.phrase}"</strong>.`
       : `${totalCount} results found.`;
 
-    // Update the view facets button with the number of filters
     if (payload.request.filter.length > 0) {
       $viewFacets.querySelector('button').setAttribute('data-count', payload.request.filter.length);
     } else {
@@ -199,31 +183,22 @@ export default async function decorate(block) {
     }
   }, { eager: true });
 
-  // Listen for search results (event is fired after the block is rendered; eager: false)
+  // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
-    // update URL with new search params
+    if (addPromoBanner) {
+      insertPromoBanner(promoBannerData);
+    }
+
+    // Update URL
     const url = new URL(window.location.href);
-
-    if (payload.request?.phrase) {
-      url.searchParams.set('q', payload.request.phrase);
-    }
-
-    if (payload.request?.currentPage) {
-      url.searchParams.set('page', payload.request.currentPage);
-    }
-
-    if (payload.request?.sort) {
-      url.searchParams.set('sort', getParamsFromSort(payload.request.sort));
-    }
-
-    if (payload.request?.filter) {
-      url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
-    }
-
-    // Update the URL
+    if (payload.request?.phrase) url.searchParams.set('q', payload.request.phrase);
+    if (payload.request?.currentPage) url.searchParams.set('page', payload.request.currentPage);
+    if (payload.request?.sort) url.searchParams.set('sort', getParamsFromSort(payload.request.sort));
+    if (payload.request?.filter) url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
 }
+
 
 function getSortFromParams(sortParam) {
   if (!sortParam) return [];
