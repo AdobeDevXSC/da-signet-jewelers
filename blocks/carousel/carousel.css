@@ -1,5 +1,6 @@
 .carousel {
     padding: 0;
+    margin-top: var(--spacing-xbig);
 }
 
 .carousel .carousel-slides-container {

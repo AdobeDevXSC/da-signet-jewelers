@@ -1,16 +1,21 @@
+.cards {
+  padding: 1rem;
+}
+
 .cards-container .cards-wrapper {
   margin-top: var(--spacing-xbig);
 }
 
 .cards > ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto;
+  grid-gap: 12px;
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: var(--spacing-medium);
+  width: 100%;
 }
-
 .cards > ul > li {
   border: var(--shape-border-width-1) solid var(--color-neutral-500);
   background-color: var(--background-color);
@@ -28,4 +33,11 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+@media (width >= 768px) {
+  .cards > ul {
+    grid-template-columns: repeat(auto-fit, minmax(23%, 1fr));
+    grid-auto-rows: 1fr;
+  }
 }

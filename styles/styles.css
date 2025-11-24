@@ -128,6 +128,7 @@
   --type-fixed-font-family: adobe-clean, "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
   --background-color: var(--color-neutral-50);
   --nav-height: 188px;
+  --brand-primary-color: #083a39;
 }
 
 /* fallback font */
@@ -149,7 +150,7 @@ body {
   font: var(--type-body-1-default-font);
   letter-spacing: var(--type-body-1-default-letter-spacing);
   margin: 0;
-  color: var(--color-neutral-800);
+  color: #000;
   background-color: var(--background-color);
   display: grid;
   grid-template-rows: auto 1fr auto;
