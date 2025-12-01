@@ -197,6 +197,8 @@ export default async function decorate(block) {
     if (payload.request?.filter) url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
+
+  console.log('plp block: ', block);
 }
 
 
