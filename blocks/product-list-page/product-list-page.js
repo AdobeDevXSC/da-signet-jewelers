@@ -26,6 +26,18 @@ export default async function decorate(block) {
   const labels = await fetchPlaceholders();
   const config = readBlockConfig(block);
 
+  const jsonUrl = 'https://main--da-signet-jewelers--adobedevxsc.aem.page/fragments/plp-fragments.json';
+  let promoData;
+
+  try {
+    const res = await fetch(jsonUrl);
+    const resJson = await res.json();
+    promoData = resJson.data;
+  } catch (e) {
+    console.error('Failed to fetch promo JSON:', e);
+    return;
+  }
+
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
       <div class="search__result-info"></div>
@@ -148,7 +160,7 @@ export default async function decorate(block) {
           actionsWrapper.appendChild(addToCartBtn);
           actionsWrapper.appendChild($wishlistToggle);
           ctx.replaceWith(actionsWrapper);
-        },
+        }
       },
     })($productList),
   ]);
@@ -167,10 +179,19 @@ export default async function decorate(block) {
     } else {
       $viewFacets.querySelector('button').removeAttribute('data-count');
     }
-  }, { eager: true });
+
+    // Wait until Drop-ins finish rendering the grid
+    waitForGrid((grid) => {
+      // ⬅ your existing logic
+      insertPromo(block, promoData);
+    });
+  }, { eager: true});
 
   // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
+    // insert promo card
+    insertPromo(block, promoData);
+
     // Update URL
     const url = new URL(window.location.href);
     if (payload.request?.phrase) url.searchParams.set('q', payload.request.phrase);
@@ -180,7 +201,6 @@ export default async function decorate(block) {
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
 }
-
 
 function getSortFromParams(sortParam) {
   if (!sortParam) return [];
@@ -249,4 +269,83 @@ function getParamsFromFilter(filter) {
 
     return null;
   }).filter(Boolean).join('|');
+}
+
+function insertPromo(block, promoData) {
+  const currentURL = window.location.pathname;
+
+  let resultList = block.querySelector('.product-discovery-product-list__grid');
+  resultList.querySelectorAll('.dropin-product-item-card.promo-card').forEach((el) => el.remove());
+
+
+  promoData.forEach((promo) => {
+    const grid = block.querySelector('.product-discovery-product-list__grid');
+    const items = Array.from(grid.children);
+
+    if (currentURL === promo.urlPath.trim()) {
+      const fragmentPath = promo.fragmentPath?.trim();
+      const row = parseInt(promo.row, 10);
+      const position = parseInt(promo.position, 10);
+      const span = parseInt(promo.span, 10);
+
+      const isLocal = window.location.hostname === "localhost";
+      const baseUrl = isLocal
+        ? "http://localhost:3000"
+        : "https://main--da-signet-jewelers--adobedevxsc.aem.page";
+
+      
+      // 4. Convert row & position into grid index
+      // Grid is 4 columns on desktop
+      const columns = 4;
+
+      // Row 1 → indices 0–3
+      // Row 2 → indices 4–7
+      // Row N → ((row - 1) * 4)
+      const rowStartIndex = (row - 1) * columns;
+
+      // Position is 1-based, so subtract 1
+      const insertIndex = rowStartIndex + (position - 1);
+
+      console.log("insertIndex: ", insertIndex)
+
+      // Create and insert the promo card
+      const card = document.createElement("div");
+      card.className = "dropin-product-item-card promo-card";
+
+      if (span > 1) {
+      card.style.gridColumn = `span ${span}`;
+      }
+
+      // Build full fragment URL
+      const fullUrl = `${baseUrl}${fragmentPath}`;
+      card.innerHTML = `
+        <aem-embed url="${fullUrl}"></aem-embed>
+      `;
+      
+      // 6. Insert at calculated index
+      if (insertIndex >= items.length) {
+        // Append if index is beyond product count
+        grid.appendChild(card);
+      } else {
+        // Insert before existing item
+        grid.insertBefore(card, items[insertIndex]);
+      }
+
+    }
+  }); 
+}
+
+function waitForGrid(callback) {
+  const selector = '.product-discovery-product-list__grid';
+
+  const check = setInterval(() => {
+    const grid = document.querySelector(selector);
+    if (!grid) return;
+
+    // Wait until children are fully rendered
+    if (grid.children.length === 0) return;
+
+    clearInterval(check);
+    callback(grid);
+  }, 100);
 }

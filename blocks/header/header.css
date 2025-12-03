@@ -164,6 +164,7 @@ li.nav-drop img {
 header nav .nav-brand img {
   width: 128px;
   height: auto;
+  margin-bottom: -7px;
 }
 
 /* sections */
@@ -779,4 +780,8 @@ li
   height: 15rem;
   max-width: 15rem;
   max-height: 15rem;
+}
+
+.wishlist-wrapper {
+  display: none;
 }

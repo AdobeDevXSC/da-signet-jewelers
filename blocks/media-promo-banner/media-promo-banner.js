@@ -16,7 +16,6 @@ export default function decorate(block) {
 
   // CASE 1 — VIDEO //
   if (isVideo) {
-    console.log("bap bap bap")
     container.remove(); // remove original DOM
     const autoplay = block.classList.contains('playonload');
     const background = block.classList.contains('autoplay');
