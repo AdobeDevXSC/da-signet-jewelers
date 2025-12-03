@@ -308,11 +308,7 @@ function insertPromo(block, promoData) {
       const position = parseInt(promo.position, 10) || 1;
       const span = parseInt(promo.span, 10) || 1;
 
-      const isLocal = window.location.hostname === "localhost";
-      const baseUrl = isLocal
-        ? "http://localhost:3000"
-        : "";
-
+      const baseUrl = window.location.origin;
       
       // 4. Convert row & position into grid index
       // Grid is 4 columns on desktop
