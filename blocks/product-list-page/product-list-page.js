@@ -26,6 +26,18 @@ export default async function decorate(block) {
   const labels = await fetchPlaceholders();
   const config = readBlockConfig(block);
 
+  const jsonUrl = 'https://main--da-signet-jewelers--adobedevxsc.aem.page/fragments/plp-fragments.json';
+  let promoData;
+
+  try {
+    const res = await fetch(jsonUrl);
+    const resJson = await res.json();
+    promoData = resJson.data;
+  } catch (e) {
+    console.error('Failed to fetch promo JSON:', e);
+    return;
+  }
+
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
       <div class="search__result-info"></div>
@@ -148,7 +160,7 @@ export default async function decorate(block) {
           actionsWrapper.appendChild(addToCartBtn);
           actionsWrapper.appendChild($wishlistToggle);
           ctx.replaceWith(actionsWrapper);
-        },
+        }
       },
     })($productList),
   ]);
@@ -167,10 +179,19 @@ export default async function decorate(block) {
     } else {
       $viewFacets.querySelector('button').removeAttribute('data-count');
     }
-  }, { eager: true });
+
+    // Wait until Drop-ins finish rendering the grid
+    waitForGrid((grid) => {
+      // ⬅ your existing logic
+      insertPromo(block, promoData);
+    });
+  }, { eager: true});
 
   // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
+    // insert promo card
+    insertPromo(block, promoData);
+
     // Update URL
     const url = new URL(window.location.href);
     if (payload.request?.phrase) url.searchParams.set('q', payload.request.phrase);
@@ -180,7 +201,6 @@ export default async function decorate(block) {
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
 }
-
 
 function getSortFromParams(sortParam) {
   if (!sortParam) return [];
@@ -249,4 +269,114 @@ function getParamsFromFilter(filter) {
 
     return null;
   }).filter(Boolean).join('|');
+}
+
+function insertPromo(block, promoData) {
+  const currentURL = window.location.pathname;
+
+  let resultList = block.querySelector('.product-discovery-product-list__grid');
+  resultList.querySelectorAll('.dropin-product-item-card.promo-card').forEach((el) => el.remove());
+
+  if (!resultList) return;
+
+    // Helper to calculate responsive span
+  function getResponsiveSpan(span) {
+    const width = window.innerWidth;
+
+    if (width >= 1280) {
+      // Large Desktop: 4 columns
+      return span;
+    } else if (width >= 1024) {
+      // Desktop: 3 columns
+      return Math.min(span, 3);
+    } else if (width >= 768) {
+      // Tablet: 2 columns
+      return Math.min(span, 2);
+    } else {
+      // Mobile: 1 column
+      return 1;
+    }
+  }
+
+  promoData.forEach((promo) => {
+    const grid = block.querySelector('.product-discovery-product-list__grid');
+    const items = Array.from(grid.children);
+
+    if (currentURL === promo.urlPath.trim()) {
+      const fragmentPath = promo.fragmentPath?.trim();
+      const row = parseInt(promo.row, 10) || 1;
+      const position = parseInt(promo.position, 10) || 1;
+      const span = parseInt(promo.span, 10) || 1;
+
+      const isLocal = window.location.hostname === "localhost";
+      const baseUrl = isLocal
+        ? "http://localhost:3000"
+        : "https://main--da-signet-jewelers--adobedevxsc.aem.page";
+
+      
+      // 4. Convert row & position into grid index
+      // Grid is 4 columns on desktop
+      const columns = 4;
+
+      // Row 1 → indices 0–3
+      // Row 2 → indices 4–7
+      // Row N → ((row - 1) * 4)
+      const rowStartIndex = (row - 1) * columns;
+
+      // Position is 1-based, so subtract 1
+      const insertIndex = rowStartIndex + (position - 1);
+
+      // Create and insert the promo card
+      const card = document.createElement("div");
+      card.className = "dropin-product-item-card promo-card";
+
+      // Store original span for resize handling
+      card.dataset.originalSpan = span;
+
+      // Apply responsive span
+      card.style.gridColumn = `span ${getResponsiveSpan(span)}`;
+
+      // Build full fragment URL
+      card.innerHTML = `<aem-embed url="${baseUrl}${fragmentPath}"></aem-embed>`;
+
+      // Build full fragment URL
+      const fullUrl = `${baseUrl}${fragmentPath}`;
+      card.innerHTML = `
+        <aem-embed url="${fullUrl}"></aem-embed>
+      `;
+      
+      // 6. Insert at calculated index
+      if (insertIndex >= items.length) {
+        // Append if index is beyond product count
+        grid.appendChild(card);
+      } else {
+        // Insert before existing item
+        grid.insertBefore(card, items[insertIndex]);
+      }
+
+    }
+  }); 
+
+  // Update spans on window resize
+  window.addEventListener('resize', () => {
+    resultList.querySelectorAll('.promo-card').forEach(card => {
+      const originalSpan = parseInt(card.dataset.originalSpan, 10);
+      card.style.gridColumn = `span ${getResponsiveSpan(originalSpan)}`;
+    });
+  });
+}
+
+function waitForGrid(callback) {
+  const selector = '.product-discovery-product-list__grid';
+
+  const check = setInterval(() => {
+    const grid = document.querySelector(selector);
+    if (!grid) return;
+
+    // Wait until children are fully rendered
+    if (grid.children.length === 0) return;
+
+    clearInterval(check);
+    callback(grid);
+  }, 100);
 }
