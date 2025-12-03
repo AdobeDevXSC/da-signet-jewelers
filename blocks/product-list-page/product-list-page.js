@@ -26,7 +26,7 @@ export default async function decorate(block) {
   const labels = await fetchPlaceholders();
   const config = readBlockConfig(block);
 
-  const jsonUrl = 'https://main--da-signet-jewelers--adobedevxsc.aem.page/fragments/plp-fragments.json';
+  const jsonUrl = '/fragments/plp-fragments.json';
   let promoData;
 
   try {
