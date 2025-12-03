@@ -311,7 +311,7 @@ function insertPromo(block, promoData) {
       const isLocal = window.location.hostname === "localhost";
       const baseUrl = isLocal
         ? "http://localhost:3000"
-        : "https://main--da-signet-jewelers--adobedevxsc.aem.page";
+        : "";
 
       
       // 4. Convert row & position into grid index
