@@ -21,19 +21,10 @@ import { fetchPlaceholders, getProductLink } from '../../scripts/commerce.js';
 // Initializers
 import '../../scripts/initializers/search.js';
 import '../../scripts/initializers/wishlist.js';
-import { getStructuredContentData, insertPromoBanner } from './plp-utils.js';
 
 export default async function decorate(block) {
   const labels = await fetchPlaceholders();
   const config = readBlockConfig(block);
-
-  const addPromoBanner = config?.promobannerpath;
-  const promoBannerPath = config?.promobannerpath;
-
-  let promoBannerData = {};
-  if (addPromoBanner) {
-    promoBannerData = await getStructuredContentData(promoBannerPath);
-  }
 
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
@@ -162,11 +153,6 @@ export default async function decorate(block) {
     })($productList),
   ]);
 
-  // Insert promo banner after initial render
-  if (addPromoBanner) {
-    insertPromoBanner(promoBannerData);
-  }
-
   // Listen for search results (before render)
   events.on('search/result', (payload) => {
     const totalCount = payload.result?.totalCount || 0;
@@ -185,10 +171,6 @@ export default async function decorate(block) {
 
   // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
-    if (addPromoBanner) {
-      insertPromoBanner(promoBannerData);
-    }
-
     // Update URL
     const url = new URL(window.location.href);
     if (payload.request?.phrase) url.searchParams.set('q', payload.request.phrase);
