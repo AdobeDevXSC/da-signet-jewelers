@@ -82,7 +82,6 @@
 }
 
 /* Empty State */
-
 .block.product-list-page.product-list-page--empty .search__wrapper {
     grid-template-areas:
         "product-list";
@@ -122,21 +121,18 @@
 
 /* Media Queries */
 @media only screen and (min-width: 768px) {
-    .block.product-list-page .search__wrapper {
+    /* .block.product-list-page .search__wrapper {
         grid-template-areas:
             "result-info product-sort"
             "facets product-list"
             ". pagination";
-        grid-template-columns: 340px 1fr;
-    }
+        grid-template-columns: 200px 1fr;
+    } */
 
     .block.product-list-page .search__view-facets {
-        display: none;
-    }
-
-    .block.product-list-page .search__facets {
-        display: unset;
-        margin-right: var(--spacing-small);
+        max-width: 180px;
+        width: 100%;
+        margin-left: auto;
     }
 
     .block.product-list-page .search__product-sort {
