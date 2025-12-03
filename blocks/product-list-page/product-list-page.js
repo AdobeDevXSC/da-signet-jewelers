@@ -277,6 +277,26 @@ function insertPromo(block, promoData) {
   let resultList = block.querySelector('.product-discovery-product-list__grid');
   resultList.querySelectorAll('.dropin-product-item-card.promo-card').forEach((el) => el.remove());
 
+  if (!resultList) return;
+
+    // Helper to calculate responsive span
+  function getResponsiveSpan(span) {
+    const width = window.innerWidth;
+
+    if (width >= 1280) {
+      // Large Desktop: 4 columns
+      return span;
+    } else if (width >= 1024) {
+      // Desktop: 3 columns
+      return Math.min(span, 3);
+    } else if (width >= 768) {
+      // Tablet: 2 columns
+      return Math.min(span, 2);
+    } else {
+      // Mobile: 1 column
+      return 1;
+    }
+  }
 
   promoData.forEach((promo) => {
     const grid = block.querySelector('.product-discovery-product-list__grid');
@@ -284,9 +304,9 @@ function insertPromo(block, promoData) {
 
     if (currentURL === promo.urlPath.trim()) {
       const fragmentPath = promo.fragmentPath?.trim();
-      const row = parseInt(promo.row, 10);
-      const position = parseInt(promo.position, 10);
-      const span = parseInt(promo.span, 10);
+      const row = parseInt(promo.row, 10) || 1;
+      const position = parseInt(promo.position, 10) || 1;
+      const span = parseInt(promo.span, 10) || 1;
 
       const isLocal = window.location.hostname === "localhost";
       const baseUrl = isLocal
@@ -306,15 +326,18 @@ function insertPromo(block, promoData) {
       // Position is 1-based, so subtract 1
       const insertIndex = rowStartIndex + (position - 1);
 
-      console.log("insertIndex: ", insertIndex)
-
       // Create and insert the promo card
       const card = document.createElement("div");
       card.className = "dropin-product-item-card promo-card";
 
-      if (span > 1) {
-      card.style.gridColumn = `span ${span}`;
-      }
+      // Store original span for resize handling
+      card.dataset.originalSpan = span;
+
+      // Apply responsive span
+      card.style.gridColumn = `span ${getResponsiveSpan(span)}`;
+
+      // Build full fragment URL
+      card.innerHTML = `<aem-embed url="${baseUrl}${fragmentPath}"></aem-embed>`;
 
       // Build full fragment URL
       const fullUrl = `${baseUrl}${fragmentPath}`;
@@ -333,6 +356,14 @@ function insertPromo(block, promoData) {
 
     }
   }); 
+
+  // Update spans on window resize
+  window.addEventListener('resize', () => {
+    resultList.querySelectorAll('.promo-card').forEach(card => {
+      const originalSpan = parseInt(card.dataset.originalSpan, 10);
+      card.style.gridColumn = `span ${getResponsiveSpan(originalSpan)}`;
+    });
+  });
 }
 
 function waitForGrid(callback) {
