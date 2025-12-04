@@ -19,7 +19,7 @@
         {
           "component": "multiselect",
           "name": "style",
-          "label": "Style",
+          "label": "Style(s)",
           "options": [
             {
               "name": "Highlight",
