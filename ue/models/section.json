@@ -18,37 +18,35 @@
       "fields": [
         {
           "component": "multiselect",
-          "name": "style",
-          "label": "Style(s)",
+          "name": "categories",
+          "label": "Categories",
           "options": [
             {
-              "name": "Highlight",
-              "value": "highlight"
+              "name": "Jewelry",
+              "value": "jewelry"
+            },
+            {
+              "name": "Watches",
+              "value": "watches"
+            },
+            {
+              "name": "Rings",
+              "value": "rings"
             }
           ]
         },
         {
-          "component": "text",
-          "name": "category-url",
-          "label": "Category URL"
-        },
-        {
-          "component": "aem-content",
-          "name": "category-content",
-          "label": "Category Content"
-        },
-        {
-          "component": "text",
+          "component": "number",
           "name": "row",
           "label": "Row"
         },
         {
-          "component": "text",
+          "component": "number",
           "name": "position",
           "label": "Position"
         },
         {
-          "component": "text",
+          "component": "number",
           "name": "span",
           "label": "Span"
         }
