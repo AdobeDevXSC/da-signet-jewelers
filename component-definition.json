@@ -59,17 +59,6 @@
           }
         },
         {
-          "title": "Media Promo Banner",
-          "id": "media-promo-banner",
-          "plugins": {
-            "da": {
-              "name": "media-promo-banner"
-            }
-          },
-          "model": "media-promo-banner",
-          "filter": "media-promo-banner"
-        },
-        {
           "title": "Accordion Item",
           "id": "accordion-item",
           "plugins": {
@@ -166,6 +155,15 @@
           "plugins": {
             "da": {
               "unsafeHTML": "<div class=\"hero\"><div><div><picture><source type=\"image/webp\" srcset=\"\"><source type=\"image/jpeg\" srcset=\"\"><img loading=\"lazy\"></picture><h1></h1></div></div></div>"
+            }
+          }
+        },
+        {
+          "title": "Media Promo Banner",
+          "id": "media-promo-banner",
+          "plugins": {
+            "da": {
+              "unsafeHTML": "<div class=\"media-promo-banner\"><div><div><p><picture><source type=\"image/webp\" srcset=\"\"><source type=\"image/jpeg\" srcset=\"\"><img loading=\"lazy\"></picture></p><h3 id=\"title\">Title</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p><a href=\"#\" title=\"CTA Button\">CTA Button</a></p></div></div></div>"
             }
           }
         },
