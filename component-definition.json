@@ -63,7 +63,7 @@
           "id": "media-promo-banner",
           "plugins": {
             "da": {
-              "name": "media-promo-banner",
+              "name": "media-promo-banner"
             }
           }
         },
