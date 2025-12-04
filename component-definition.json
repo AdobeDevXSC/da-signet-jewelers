@@ -65,7 +65,9 @@
             "da": {
               "name": "media-promo-banner"
             }
-          }
+          },
+          "model": "media-promo-banner",
+          "filter": "media-promo-banner"
         },
         {
           "title": "Accordion Item",
