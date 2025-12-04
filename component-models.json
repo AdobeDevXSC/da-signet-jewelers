@@ -67,6 +67,11 @@
         "label": "Category URL"
       },
       {
+        "component": "aem-content",
+        "name": "category-content",
+        "label": "Category Content"
+      },
+      {
         "component": "text",
         "name": "row",
         "label": "Row"
