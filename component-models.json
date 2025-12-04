@@ -85,6 +85,32 @@
     ]
   },
   {
+    "id": "media-promo-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "div:nth-child(1)>picture>img[src]",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "alt",
+        "valueType": "string",
+        "name": "div:nth-child(1)>picture>img[alt]",
+        "label": "Image Alt",
+        "multi": false
+      },
+      {
+        "component": "title",
+        "valueType": "string",
+        "name": "div h3",
+        "label": "Title",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
