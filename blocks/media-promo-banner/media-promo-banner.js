@@ -24,9 +24,12 @@ export default function decorate(block) {
     return;
   }
 
-  // CASE 2 — IMAGE WITH TEXT + CTA Button //
+  // CASE 2 — IMAGE WITH TEXT //
   if (picture && hasText) {
     block.classList.add('mpb-has-text');
+    const anchor = document.createElement('a');
+    anchor.href = link;
+    anchor.className = '';
 
     const wrapper = document.createElement('div');
     wrapper.className = 'mpb-overlay-wrapper';
@@ -42,6 +45,7 @@ export default function decorate(block) {
     // Move all non-image content into text wrapper
     paragraphs.forEach(p => {
       if (!p.querySelector('picture')) textWrapper.append(p);
+      if (p.querySelector('a')) p.remove(); // remove link from text
     });
     container.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => textWrapper.prepend(h));
 
@@ -49,7 +53,8 @@ export default function decorate(block) {
     wrapper.append(textWrapper);
 
     block.innerHTML = '';
-    block.append(wrapper);
+    anchor.append(wrapper)
+    block.append(anchor);
     return;
   }
 
