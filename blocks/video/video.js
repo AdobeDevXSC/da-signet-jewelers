@@ -28,13 +28,20 @@ function embedYoutube(url, autoplay, background) {
 }
 
 function getVideoElement(source, autoplay, background) {
-  //DEMO ONLY - Turn autoplay on
-  autoplay = true;
+  autoplay = true; // demo override (you can remove)
+
   const video = document.createElement('video');
   video.setAttribute('controls', '');
-  if (autoplay) video.setAttribute('autoplay', '');
-  if (background) {
+
+  if (autoplay) {
+    video.setAttribute('autoplay', '');
+  }
+
+  if (autoplay || background) {
     video.setAttribute('loop', '');
+  }
+
+  if (background) {
     video.setAttribute('playsinline', '');
     video.removeAttribute('controls');
     video.addEventListener('canplay', () => {
@@ -43,16 +50,17 @@ function getVideoElement(source, autoplay, background) {
     });
   }
 
-  //DEMO ONLY - Mute video on load
+  // Demo-only default mute
   video.muted = true;
 
   const sourceEl = document.createElement('source');
   sourceEl.setAttribute('src', source);
-  sourceEl.setAttribute('type', `video/mp4`);
+  sourceEl.setAttribute('type', 'video/mp4');
   video.append(sourceEl);
 
   return video;
 }
+
 
 const loadVideoEmbed = (block, link, autoplay, background) => {
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
@@ -72,7 +80,42 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   }
 };
 
+function runHomePageCode(block) {
+  const main = block.closest('main');
+  const sections = main.querySelectorAll(':scope > .section');
+  const firstSection = sections[0];
+
+  if (!firstSection) return;
+
+  const isInsideFirstSection = firstSection.contains(block);
+  if (!isInsideFirstSection) return;
+
+  const header = document.querySelector('header');
+  if (!header) return;
+
+  // Add transparent class on initial load
+  header.classList.add('transparent-header-desktop');
+
+  function handleScroll() {
+    const scrolledPast = window.scrollY >= window.innerHeight;
+
+    if (scrolledPast) {
+      // Remove transparency after scrolling 1 viewport
+      header.classList.remove('transparent-header-desktop');
+    } else {
+      // Add it back when user scrolls up above that point
+      header.classList.add('transparent-header-desktop');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+}
+
 export default function decorate(block) {
+  if (window.location.pathname === '/') {
+    runHomePageCode(block);
+  }
+
   const link = block.querySelector(':scope div:nth-child(1) > div a').href.trim();
 
   // Remove link text from the block

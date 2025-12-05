@@ -29,8 +29,8 @@
 
 .video video {
   max-width: 100%;
-  min-height: 400px;
-  max-height: 650px;
+  min-height: 600px;
+  max-height: 100vh;
   width: 100%;
   aspect-ratio: inherit;
   object-fit: cover;
@@ -106,20 +106,26 @@
 
 
 .video .video-text-wrapper {
-  position: absolute; 
-  bottom: 80px;
-  left: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
   color: #fff;
   z-index: 2;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .video .video-text-wrapper > div > h1 {
-  font-size: 48px;
+  font-size: 44px;
+  margin-top: 1rem;
 }
 
 .video .video-text-wrapper > div > p {
-  font-size: 22px;
+  font-size: 14px;
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .video .video-text-wrapper a {
@@ -134,6 +140,7 @@
 
 @media (width > 900px) {
   .video .video-text-wrapper {
-    left: 3rem;
+    padding: 0 5rem;
+    max-width: 500px;
   }
 }
