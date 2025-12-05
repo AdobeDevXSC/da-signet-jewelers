@@ -27,32 +27,57 @@ function embedYoutube(url, autoplay, background) {
   return temp.children.item(0);
 }
 
-function getVideoElement(source, autoplay, background) {
-  //DEMO ONLY - Turn autoplay on
-  autoplay = true;
+function getVideoElement(source, autoplay = true, background = false) {
   const video = document.createElement('video');
-  video.setAttribute('controls', '');
-  if (autoplay) video.setAttribute('autoplay', '');
-  if (background) {
-    video.setAttribute('loop', '');
-    video.setAttribute('playsinline', '');
-    video.removeAttribute('controls');
-    video.addEventListener('canplay', () => {
-      video.muted = true;
-      if (autoplay) video.play();
-    });
-  }
 
-  //DEMO ONLY - Mute video on load
+  // Mute required for autoplay
   video.muted = true;
 
+  // Autoplay & loop if requested
+  if (autoplay || background) {
+    video.autoplay = true;
+    video.loop = true;
+  }
+
+  // Remove controls
+  video.controls = false;
+
+  // Plays inline for mobile
+  video.playsInline = true;
+
+  // Hide from assistive tech if decorative
+  video.setAttribute('aria-hidden', 'true');
+
+  // Add source
   const sourceEl = document.createElement('source');
-  sourceEl.setAttribute('src', source);
-  sourceEl.setAttribute('type', `video/mp4`);
-  video.append(sourceEl);
+  sourceEl.src = source;
+  sourceEl.type = 'video/mp4';
+  video.appendChild(sourceEl);
+
+  // Ensure playback starts
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Retry after a short delay if blocked
+        setTimeout(tryPlay, 200);
+      });
+    }
+  };
+
+  tryPlay();
+
+  // Extra safeguard: restart if it somehow stops
+  video.addEventListener('ended', () => {
+    video.currentTime = 0;
+    tryPlay();
+  });
 
   return video;
 }
+
+
+
 
 const loadVideoEmbed = (block, link, autoplay, background) => {
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
@@ -72,7 +97,42 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   }
 };
 
+function runHomePageCode(block) {
+  const main = block.closest('main');
+  const sections = main.querySelectorAll(':scope > .section');
+  const firstSection = sections[0];
+
+  if (!firstSection) return;
+
+  const isInsideFirstSection = firstSection.contains(block);
+  if (!isInsideFirstSection) return;
+
+  const header = document.querySelector('header');
+  if (!header) return;
+
+  // Add transparent class on initial load
+  header.classList.add('transparent-header-desktop');
+
+  function handleScroll() {
+    const scrolledPast = window.scrollY >= window.innerHeight;
+
+    if (scrolledPast) {
+      // Remove transparency after scrolling 1 viewport
+      header.classList.remove('transparent-header-desktop');
+    } else {
+      // Add it back when user scrolls up above that point
+      header.classList.add('transparent-header-desktop');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+}
+
 export default function decorate(block) {
+  if (window.location.pathname === '/') {
+    runHomePageCode(block);
+  }
+
   const link = block.querySelector(':scope div:nth-child(1) > div a').href.trim();
 
   // Remove link text from the block

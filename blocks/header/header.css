@@ -12,7 +12,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 3;
   position: fixed;
-  border-bottom: 1px solid var(--color-neutral-300);
+  border-bottom: 1px solid gray;
 }
 
 header nav {
@@ -784,4 +784,59 @@ li
 
 .wishlist-wrapper {
   display: none;
+}
+
+
+/* transparent desktop header */
+@media (width >= 900px) {
+  header.transparent-header-desktop {
+    position: absolute;
+    top: 0;
+    background: transparent;
+  }
+
+  header.transparent-header-desktop:hover {
+    background: #fff;
+  }
+
+  header.transparent-header-desktop .header .nav-wrapper {
+    background-color: transparent;
+    border-bottom: 0;
+  }
+
+  header.transparent-header-desktop .header .nav-wrapper:hover {
+    background-color: #fff;
+  }
+
+  header.transparent-header-desktop .header .nav-tools {
+    background: transparent;
+  }
+
+  header.transparent-header-desktop .header .nav-tools {
+    background: unset;
+  }
+
+  header.transparent-header-desktop .header .nav-brand img {
+    filter: invert(1);
+  }
+
+  header.transparent-header-desktop:hover .header .nav-brand img {
+    filter: unset;
+  }
+
+  header.transparent-header-desktop nav .nav-sections .default-content-wrapper > ul > li > p {
+    filter: invert(1);
+  }
+
+  header.transparent-header-desktop:hover nav .nav-sections .default-content-wrapper > ul > li > p {
+    filter: unset;
+  }
+
+  header.transparent-header-desktop nav .nav-tools .nav-tools-wrapper > button {
+    filter: invert(1);
+  }
+
+  header.transparent-header-desktop:hover nav .nav-tools .nav-tools-wrapper > button {
+    filter: unset;
+  }
 }
