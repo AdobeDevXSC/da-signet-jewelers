@@ -29,7 +29,7 @@
 
 .video video {
   max-width: 100%;
-  min-height: 600px;
+  min-height: 100vh;
   max-height: 100vh;
   width: 100%;
   aspect-ratio: inherit;

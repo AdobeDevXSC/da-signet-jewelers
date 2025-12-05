@@ -27,39 +27,56 @@ function embedYoutube(url, autoplay, background) {
   return temp.children.item(0);
 }
 
-function getVideoElement(source, autoplay, background) {
-  autoplay = true; // demo override (you can remove)
-
+function getVideoElement(source, autoplay = true, background = false) {
   const video = document.createElement('video');
-  video.setAttribute('controls', '');
 
-  if (autoplay) {
-    video.setAttribute('autoplay', '');
-  }
-
-  if (autoplay || background) {
-    video.setAttribute('loop', '');
-  }
-
-  if (background) {
-    video.setAttribute('playsinline', '');
-    video.removeAttribute('controls');
-    video.addEventListener('canplay', () => {
-      video.muted = true;
-      if (autoplay) video.play();
-    });
-  }
-
-  // Demo-only default mute
+  // Mute required for autoplay
   video.muted = true;
 
+  // Autoplay & loop if requested
+  if (autoplay || background) {
+    video.autoplay = true;
+    video.loop = true;
+  }
+
+  // Remove controls
+  video.controls = false;
+
+  // Plays inline for mobile
+  video.playsInline = true;
+
+  // Hide from assistive tech if decorative
+  video.setAttribute('aria-hidden', 'true');
+
+  // Add source
   const sourceEl = document.createElement('source');
-  sourceEl.setAttribute('src', source);
-  sourceEl.setAttribute('type', 'video/mp4');
-  video.append(sourceEl);
+  sourceEl.src = source;
+  sourceEl.type = 'video/mp4';
+  video.appendChild(sourceEl);
+
+  // Ensure playback starts
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Retry after a short delay if blocked
+        setTimeout(tryPlay, 200);
+      });
+    }
+  };
+
+  tryPlay();
+
+  // Extra safeguard: restart if it somehow stops
+  video.addEventListener('ended', () => {
+    video.currentTime = 0;
+    tryPlay();
+  });
 
   return video;
 }
+
+
 
 
 const loadVideoEmbed = (block, link, autoplay, background) => {
