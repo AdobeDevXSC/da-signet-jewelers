@@ -27,13 +27,14 @@
   justify-content: center;
 }
 
-.video video {
+video, video video {
+  display: block;
+  width: 100dvw;
   max-width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
-  width: 100%;
-  aspect-ratio: inherit;
+  height: 100dvh;
+  max-height: 1000px;
   object-fit: cover;
+  aspect-ratio: auto;
 }
 
 .video .video-placeholder {

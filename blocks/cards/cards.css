@@ -38,7 +38,7 @@
 }
 
 .cards .cards-card-body p {
-  margin: 0;
+  margin: 1rem 0;
 }
 
 .cards .cards-card-image {
@@ -56,6 +56,10 @@
 
 .cards > ul > li:hover img {
   transform: scale(1.1); /* image zoom related css */
+}
+
+.cards > ul > li a:hover {
+  text-decoration: none;
 }
 
 
