@@ -11,6 +11,11 @@
     margin: 0;
 }
 
+.product-recommendations .dropin-content-grid {
+    overflow: unset;
+    overflow-x: auto;
+}
+
 .product-recommendations .product-grid-item img {
     width: 100%;
 }
@@ -62,7 +67,7 @@
     align-items: center;
 }
 
-.product-recomendations .dropin-product-item-card__image img {
+.product-recommendations .dropin-product-item-card__image img {
     width: 100%;
     max-height: 200px;
     object-fit: contain;
