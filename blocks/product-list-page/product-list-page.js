@@ -28,7 +28,7 @@ export default async function decorate(block) {
 
   const plpPromosJson = '/fragments/plp-promos/query-index.json';
   const plpBannersJson = '/fragments/plp-banners/query-index.json';
-  
+
   let promosData;
   let bannersData;
 
@@ -199,7 +199,7 @@ export default async function decorate(block) {
       // ⬅ your existing logic
       insertPromo(block, promosData);
     });
-  }, { eager: true});
+  }, { eager: true });
 
   // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
@@ -214,14 +214,6 @@ export default async function decorate(block) {
     if (payload.request?.filter) url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
-
-  console.log('productListItems');
-  console.log(block);
-  const productListItems = block.querySelectorAll('.dropin-product-item-card');
-  console.log(productListItems);
-  productListItems.forEach((productListItem) => {
-    console.log(productListItem);
-  });
 
   insertBanner(bannersData);
 }
@@ -301,9 +293,31 @@ function insertPromo(block, promosData) {
   let resultList = block.querySelector('.product-discovery-product-list__grid');
   resultList.querySelectorAll('.dropin-product-item-card.promo-card').forEach((el) => el.remove());
 
+  fetch('/extras/badges.json').then((badges) => {
+    badges.json().then((bd) => {
+      console.log(bd.data);
+
+      resultList.querySelectorAll('.dropin-product-item-card').forEach((el) => {
+        if(el.classList.contains('promo-card')) return;
+        const anchor = el.querySelector('.dropin-product-item-card__title a');
+        const href = anchor?.href;
+        const card = bd.data.find((bdge) => href.includes(bdge.url));
+        if (card) {
+          const badge = document.createElement('div');
+          badge.className = 'dropin-product-item-card__badge';
+          badge.innerHTML = card?.badge;
+          el.append(badge);
+        }
+      });
+    });
+
+  });
+
+
+
   if (!resultList) return;
 
-    // Helper to calculate responsive span
+  // Helper to calculate responsive span
   function getResponsiveSpan(span) {
     const width = window.innerWidth;
 
@@ -333,7 +347,7 @@ function insertPromo(block, promosData) {
       const span = parseInt(promo.span, 10) || 1;
 
       const baseUrl = window.location.origin;
-      
+
       // 4. Convert row & position into grid index
       // Grid is 4 columns on desktop
       const columns = 4;
@@ -364,7 +378,7 @@ function insertPromo(block, promosData) {
       card.innerHTML = `
         <aem-embed url="${fullUrl}"></aem-embed>
       `;
-      
+
       // 6. Insert at calculated index
       if (insertIndex >= items.length) {
         // Append if index is beyond product count
@@ -375,7 +389,7 @@ function insertPromo(block, promosData) {
       }
 
     }
-  }); 
+  });
 
   // Update spans on window resize
   window.addEventListener('resize', () => {
