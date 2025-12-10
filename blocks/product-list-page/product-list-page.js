@@ -26,17 +26,31 @@ export default async function decorate(block) {
   const labels = await fetchPlaceholders();
   const config = readBlockConfig(block);
 
-  const jsonUrl = '/fragments/plp-fragments.json';
-  let promoData;
+  const plpPromosJson = '/fragments/plp-promos/query-index.json';
+  const plpBannersJson = '/fragments/plp-banners/query-index.json';
+  
+  let promosData;
+  let bannersData;
 
   try {
-    const res = await fetch(jsonUrl);
+    const res = await fetch(plpPromosJson);
     const resJson = await res.json();
-    promoData = resJson.data;
+    promosData = resJson.data;
+    promosData.sort((a, b) => Number(a.row) - Number(b.row));
   } catch (e) {
     console.error('Failed to fetch promo JSON:', e);
     return;
   }
+
+  try {
+    const res = await fetch(plpBannersJson);
+    const resJson = await res.json();
+    bannersData = resJson.data;
+  } catch (e) {
+    console.error('Failed to fetch banner JSON:', e);
+    return;
+  }
+
 
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
@@ -183,14 +197,14 @@ export default async function decorate(block) {
     // Wait until Drop-ins finish rendering the grid
     waitForGrid((grid) => {
       // ⬅ your existing logic
-      insertPromo(block, promoData);
+      insertPromo(block, promosData);
     });
   }, { eager: true});
 
   // Listen for search results (after render) — handles subsequent searches and updates
   events.on('search/result', (payload) => {
     // insert promo card
-    insertPromo(block, promoData);
+    insertPromo(block, promosData);
 
     // Update URL
     const url = new URL(window.location.href);
@@ -200,6 +214,8 @@ export default async function decorate(block) {
     if (payload.request?.filter) url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
+
+  insertBanner(bannersData);
 }
 
 function getSortFromParams(sortParam) {
@@ -271,7 +287,7 @@ function getParamsFromFilter(filter) {
   }).filter(Boolean).join('|');
 }
 
-function insertPromo(block, promoData) {
+function insertPromo(block, promosData) {
   const currentURL = window.location.pathname;
 
   let resultList = block.querySelector('.product-discovery-product-list__grid');
@@ -298,12 +314,12 @@ function insertPromo(block, promoData) {
     }
   }
 
-  promoData.forEach((promo) => {
+  promosData.forEach((promo) => {
     const grid = block.querySelector('.product-discovery-product-list__grid');
     const items = Array.from(grid.children);
 
-    if (currentURL === promo.urlPath.trim()) {
-      const fragmentPath = promo.fragmentPath?.trim();
+    if (currentURL === promo.category) {
+      const fragmentPath = promo.path;
       const row = parseInt(promo.row, 10) || 1;
       const position = parseInt(promo.position, 10) || 1;
       const span = parseInt(promo.span, 10) || 1;
@@ -375,4 +391,40 @@ function waitForGrid(callback) {
     clearInterval(check);
     callback(grid);
   }, 100);
+}
+
+function insertBanner(data) {
+  const plpWrapper = document.querySelector('.product-list-page-wrapper');
+  const currentURL = window.location.pathname;
+
+  if (!plpWrapper) {
+    console.warn("plpWrapper not found — cannot insert banner.");
+    return;
+  }
+
+  data.forEach((banner) => {
+    if (currentURL === banner.category) {
+      const position = parseInt(banner.position, 10) || 1;
+      const fragmentPath = banner.path;
+      const baseUrl = window.location.origin;
+
+      // Build full fragment URL
+      const fullUrl = `${baseUrl}${fragmentPath}`;
+
+      // Build banner element
+      const bannerEl = document.createElement('div');
+      bannerEl.classList.add('plp-banner');
+      bannerEl.innerHTML = `
+        <aem-embed url="${fullUrl}"></aem-embed>
+      `;
+
+      if (position === 1) {
+        // insert BEFORE PLP wrapper
+        plpWrapper.parentNode.insertBefore(bannerEl, plpWrapper);
+      } else if (position === 2) {
+        // insert AFTER PLP wrapper
+        plpWrapper.parentNode.insertBefore(bannerEl, plpWrapper.nextSibling);
+      }
+    }
+  });
 }
