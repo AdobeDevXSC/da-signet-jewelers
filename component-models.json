@@ -26,12 +26,8 @@
       {
         "component": "text",
         "name": "category",
-        "label": "Category URL"
-      },
-      {
-        "component": "aem-content",
-        "name": "path",
-        "label": "Category Content"
+        "label": "Category",
+        "description": "Ex. /jewerly/rings"
       },
       {
         "component": "text",
