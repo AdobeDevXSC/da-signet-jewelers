@@ -200,6 +200,14 @@ export default async function decorate(block) {
     if (payload.request?.filter) url.searchParams.set('filter', getParamsFromFilter(payload.request.filter));
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
+
+  console.log('productListItems');
+  console.log(block);
+  const productListItems = block.querySelectorAll('.dropin-product-item-card');
+  console.log(productListItems);
+  productListItems.forEach((productListItem) => {
+    console.log(productListItem);
+  });
 }
 
 function getSortFromParams(sortParam) {
