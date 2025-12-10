@@ -164,22 +164,22 @@ export default async function decorate(block) {
           });
         },
         ProductActions: (ctx) => {
-          const actionsWrapper = document.createElement('div');
-          actionsWrapper.className = 'product-discovery-product-actions';
+          // const actionsWrapper = document.createElement('div');
+          // actionsWrapper.className = 'product-discovery-product-actions';
 
-          const addToCartBtn = getAddToCartButton(ctx.product);
-          addToCartBtn.className = 'product-discovery-product-actions__add-to-cart';
+          // const addToCartBtn = getAddToCartButton(ctx.product);
+          // addToCartBtn.className = 'product-discovery-product-actions__add-to-cart';
 
-          const $wishlistToggle = document.createElement('div');
-          $wishlistToggle.classList.add('product-discovery-product-actions__wishlist-toggle');
-          wishlistRender.render(WishlistToggle, {
-            product: ctx.product,
-            variant: 'tertiary',
-          })($wishlistToggle);
+          // const $wishlistToggle = document.createElement('div');
+          // $wishlistToggle.classList.add('product-discovery-product-actions__wishlist-toggle');
+          // wishlistRender.render(WishlistToggle, {
+          //   product: ctx.product,
+          //   variant: 'tertiary',
+          // })($wishlistToggle);
 
-          actionsWrapper.appendChild(addToCartBtn);
-          actionsWrapper.appendChild($wishlistToggle);
-          ctx.replaceWith(actionsWrapper);
+          // actionsWrapper.appendChild(addToCartBtn);
+          // actionsWrapper.appendChild($wishlistToggle);
+          // ctx.replaceWith(actionsWrapper);
         }
       },
     })($productList),
