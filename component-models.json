@@ -27,7 +27,7 @@
         "component": "text",
         "name": "category",
         "label": "Category",
-        "description": "Ex. /jewerly/rings"
+        "description": "Ex. /category/sub-category"
       },
       {
         "component": "text",
