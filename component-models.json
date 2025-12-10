@@ -81,6 +81,31 @@
             "value": "highlight"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "category-url",
+        "label": "Category URL"
+      },
+      {
+        "component": "aem-content",
+        "name": "category-content",
+        "label": "Category Content"
+      },
+      {
+        "component": "text",
+        "name": "row",
+        "label": "Row"
+      },
+      {
+        "component": "text",
+        "name": "position",
+        "label": "Position"
+      },
+      {
+        "component": "text",
+        "name": "span",
+        "label": "Span"
       }
     ]
   },
