@@ -215,6 +215,14 @@ export default async function decorate(block) {
     window.history.pushState({}, '', url.toString());
   }, { eager: false });
 
+  console.log('productListItems');
+  console.log(block);
+  const productListItems = block.querySelectorAll('.dropin-product-item-card');
+  console.log(productListItems);
+  productListItems.forEach((productListItem) => {
+    console.log(productListItem);
+  });
+
   insertBanner(bannersData);
 }
 
