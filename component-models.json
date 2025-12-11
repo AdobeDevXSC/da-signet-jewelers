@@ -280,7 +280,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)",
+        "name": "div:nth-child(1)>div:nth-child(2)>p:nth-child(1)",
         "label": "recID",
         "value": "",
         "required": true
@@ -288,7 +288,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "div:nth-child(2)>div:nth-child(1)>p:nth-child(1)",
+        "name": "div:nth-child(2)>div:nth-child(2)>p:nth-child(1)",
         "label": "currentSku",
         "value": "",
         "required": true
