@@ -70,7 +70,7 @@ export default async function decorate(block) {
   const $productList = fragment.querySelector('.search__product-list');
   const $pagination = fragment.querySelector('.search__pagination');
 
-  block.innerHTML = '';
+  //block.innerHTML = '';
   block.appendChild(fragment);
 
   if (config.urlpath) {
