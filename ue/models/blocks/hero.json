@@ -30,7 +30,7 @@
         },
         {
           "component": "text",
-          "name": "div:nth-child(1)>div:nth-child(1)>h1:nth-child(2)",
+          "name": "div:nth-child(2)",
           "value": "",
           "label": "Text",
           "valueType": "string"

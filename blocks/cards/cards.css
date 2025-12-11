@@ -51,11 +51,6 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
   min-height: 340px;
-  transition: transform 0.3s ease; /* image zoom related css */
-}
-
-.cards > ul > li:hover img {
-  transform: scale(1.1); /* image zoom related css */
 }
 
 .cards > ul > li a:hover {

@@ -495,6 +495,13 @@ main .block.text-alignment-right  {
   text-align: right;
 }
 
+main .section.image-zoom-hover img {
+  transition: transform 0.3s ease; /* image zoom related css */
+}
+
+main .section.image-zoom-hover .block img:hover {
+  transform: scale(1.1); /* image zoom related css */
+}
 
 /* Base Design System Tokens */
 .dropin-design.dropin-design {
