@@ -1,0 +1,35 @@
+{
+  "definitions": [
+    {
+      "title": "Product Recommendations",
+      "id": "product-recommendations",
+      "plugins": {
+        "da": {
+          "unsafeHTML": "<div></div>"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hero",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)",
+          "label": "recID",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div:nth-child(2)>div:nth-child(2)>p:nth-child(1)",
+          "label": "currentSku",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
