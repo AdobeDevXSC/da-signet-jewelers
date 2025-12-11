@@ -27,10 +27,19 @@
       "id": "cards",
       "fields": [
         {
-          "component": "boolean",
+          "component": "select",
           "name": "style",
           "label": "Zoom-in on hover",
-          "default": false
+          "options": [
+            {
+              "name": "true",
+              "value": "zoom-in-true"
+            },
+            {
+              "name": "false",
+              "value": "zoom-in-false"
+            }
+          ]
         }
       ]
     },
