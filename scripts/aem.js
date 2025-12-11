@@ -408,31 +408,37 @@ function decorateButtons(element) {
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
+
+      // Check if the <a> does not contain an <img> and it is inside a valid container
       if (!a.querySelector('img')) {
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+        // Case 1: When <em> is directly inside the <a> tag
+        if (a.querySelector('em') && up.childNodes.length === 1 && up.tagName === 'P') {
+          a.className = 'button secondary';
+          up.classList.add('button-container');
+          // Case 2: When <strong> is directly inside the <a> tag
+        } else if (a.querySelector('strong') && up.childNodes.length === 1 && up.tagName === 'P') {
+          a.className = 'button primary';
+          up.classList.add('button-container');
+        // Case 3: When <em> is inside a parent <p> or <div>, but not directly within <a>
+        } else if (
+          up.childNodes.length === 1
+          && (up.tagName === 'P' || up.tagName === 'DIV')
+          && !a.querySelector('em')
+        ) {
           a.className = 'button'; // default
           up.classList.add('button-container');
-        }
-
-        // Primary
-        if (
+        // Case 4: When <em> is inside a parent <p>, and <a> is inside <strong> or <em> as a sibling
+        } else if (
           up.childNodes.length === 1
-          && up.tagName === 'STRONG'
+          && (up.tagName === 'EM' || up.tagName === 'STRONG')
           && twoup.childNodes.length === 1
-          && (twoup.tagName === 'P' || twoup.tagName === 'DIV')
+          && twoup.tagName === 'P'
         ) {
-          a.className = 'button primary';
-          twoup.classList.add('button-container');
-        }
-
-        // Secondary
-        if (
-          up.childNodes.length === 1
-          && up.tagName === 'EM'
-          && twoup.childNodes.length === 1
-          && (twoup.tagName === 'P' || twoup.tagName === 'DIV')
-        ) {
-          a.className = 'button secondary';
+          if (up.tagName === 'EM') {
+            a.className = 'button secondary';
+          } else if (up.tagName === 'STRONG') {
+            a.className = 'button primary';
+          }
           twoup.classList.add('button-container');
         }
       }
