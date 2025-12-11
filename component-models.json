@@ -79,6 +79,10 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Image Zoom on Hover",
+            "value": "image-zoom-hover"
           }
         ]
       }
