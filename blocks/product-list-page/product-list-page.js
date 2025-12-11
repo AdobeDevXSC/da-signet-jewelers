@@ -76,8 +76,6 @@ export default async function decorate(block) {
   useZoomViewer = block.querySelector('div:nth-child(3)>div:nth-child(2)>p:nth-child(1)').textContent;
   useProductBadges = block.querySelector('div:nth-child(4)>div:nth-child(2)>p:nth-child(1)').textContent;
 
-  console.log(useZoomViewer, useProductBadges);
-
   //block.innerHTML = '';
   block.appendChild(fragment);
 
