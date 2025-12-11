@@ -1,0 +1,35 @@
+{
+  "definitions": [
+    {
+      "title": "Product List Page",
+      "id": "product-list-page",
+      "plugins": {
+        "da": {
+          "unsafeHTML": "<div class=\"product-list-page\"><div><div>category</div><div>41</div></div><div><div>urlPath</div><div>phones</div></div></div>"
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "product-list-page",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "div>div:nth-child(1)",
+          "label": "Category",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "name": "div>div:nth-child(2)",
+          "value": "",
+          "label": "URL Path",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

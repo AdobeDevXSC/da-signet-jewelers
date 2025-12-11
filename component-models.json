@@ -22,27 +22,6 @@
         "name": "robots",
         "label": "Robots",
         "description": "Index control via robots"
-      },
-      {
-        "component": "text",
-        "name": "category",
-        "label": "Category",
-        "description": "Ex. /category/sub-category"
-      },
-      {
-        "component": "text",
-        "name": "row",
-        "label": "Row"
-      },
-      {
-        "component": "text",
-        "name": "position",
-        "label": "Position"
-      },
-      {
-        "component": "text",
-        "name": "span",
-        "label": "Span"
       }
     ]
   },
@@ -81,6 +60,31 @@
             "value": "highlight"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "category-url",
+        "label": "Category URL"
+      },
+      {
+        "component": "aem-content",
+        "name": "category-content",
+        "label": "Category Content"
+      },
+      {
+        "component": "text",
+        "name": "row",
+        "label": "Row"
+      },
+      {
+        "component": "text",
+        "name": "position",
+        "label": "Position"
+      },
+      {
+        "component": "text",
+        "name": "span",
+        "label": "Span"
       }
     ]
   },
@@ -235,6 +239,25 @@
         "name": "div h3",
         "value": "",
         "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "product-list-page",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "div>div:nth-child(1)",
+        "label": "Category",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "div>div:nth-child(2)",
+        "value": "",
+        "label": "URL Path",
         "valueType": "string"
       }
     ]
