@@ -47,13 +47,14 @@
         "form",
         "hero",
         "image",
+        "media-promo-banner",
+        "product-recommendations",
         "quote",
         "search",
         "tabs",
         "table",
         "text",
-        "video",
-        "media-promo-banner"
+        "video"
       ]
     }
   ]
