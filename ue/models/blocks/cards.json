@@ -30,7 +30,7 @@
           "component": "boolean",
           "name": "style",
           "label": "Zoom-in on hover",
-          "valueType": "boolean" 
+          "default": false
         }
       ]
     },
