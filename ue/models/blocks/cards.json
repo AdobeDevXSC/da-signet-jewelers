@@ -24,17 +24,6 @@
   ],
   "models": [
     {
-      "id": "cards",
-      "fields": [
-        {
-          "component": "boolean",
-          "name": "root",
-          "label": "Zoom-in on hover",
-          "valueType": "boolean" 
-        }
-      ]
-    },
-    {
       "id": "card",
       "fields": [
         {
