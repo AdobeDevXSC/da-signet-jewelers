@@ -28,7 +28,7 @@
       "fields": [
         {
           "component": "boolean",
-          "name": "zoom-in",
+          "name": "style",
           "label": "Zoom-in on hover",
           "valueType": "boolean" 
         }
