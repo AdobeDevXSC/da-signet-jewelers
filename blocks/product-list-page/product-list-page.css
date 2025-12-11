@@ -149,6 +149,10 @@
 
 }
 
+.block.product-list-page > div:nth-child(n+1):nth-child(-n+4) {
+    display: none;
+}
+
 /* Media Queries */
 @media only screen and (min-width: 768px) {
     /* .block.product-list-page .search__wrapper {
