@@ -413,20 +413,24 @@ function decorateButtons(element) {
           a.className = 'button'; // default
           up.classList.add('button-container');
         }
+
+        // Primary
         if (
           up.childNodes.length === 1
           && up.tagName === 'STRONG'
           && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
+          && (twoup.tagName === 'P' || twoup.tagName === 'DIV')
         ) {
           a.className = 'button primary';
           twoup.classList.add('button-container');
         }
+
+        // Secondary
         if (
           up.childNodes.length === 1
           && up.tagName === 'EM'
           && twoup.childNodes.length === 1
-          && twoup.tagName === 'P'
+          && (twoup.tagName === 'P' || twoup.tagName === 'DIV')
         ) {
           a.className = 'button secondary';
           twoup.classList.add('button-container');
