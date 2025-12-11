@@ -168,6 +168,15 @@
           }
         },
         {
+          "title": "Product Recommendations",
+          "id": "product-recommendations",
+          "plugins": {
+            "da": {
+              "unsafeHTML": "<div></div>"
+            }
+          }
+        },
+        {
           "title": "Quote",
           "id": "quote",
           "plugins": {
