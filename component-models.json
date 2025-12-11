@@ -209,7 +209,7 @@
         "value": ""
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "div:nth-child(2)",
         "value": "",
         "label": "Text",
