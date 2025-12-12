@@ -29,10 +29,10 @@
           "value": ""
         },
         {
-          "component": "text",
-          "name": "div h3",
+          "component": "richtext",
+          "name": "div:nth-child(2)",
           "value": "",
-          "label": "Title",
+          "label": "Text",
           "valueType": "string"
         }
       ]
