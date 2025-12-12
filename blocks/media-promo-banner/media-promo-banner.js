@@ -30,7 +30,6 @@ export default function decorate(block) {
 
   // CASE 2 — IMAGE WITH TEXT //
   if (picture && hasText) {
-    mediaContainer.remove();
     block.classList.add('mpb-has-text');
     const anchor = document.createElement('a');
     anchor.href = link;
