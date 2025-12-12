@@ -170,7 +170,6 @@
         {
           "title": "Product List Page",
           "id": "product-list-page",
-<<<<<<< HEAD
           "plugins": {
             "da": {
               "unsafeHTML": "<div class=\"product-list-page\"><div><div>category</div><div>41</div></div><div><div>urlPath</div><div>phones</div></div></div>"
@@ -180,11 +179,9 @@
         {
           "title": "Product Recommendations",
           "id": "product-recommendations",
-=======
->>>>>>> 5b021bd (update plp)
           "plugins": {
             "da": {
-              "unsafeHTML": "<div class=\"product-list-page\"><div><div>category</div><div>41</div></div><div><div>urlPath</div><div>phones</div></div></div>"
+              "unsafeHTML": "<div class=\"product-recommendations\"><div><div>recId</div><div></div></div><div><div>currentSku</div><div></div></div></div>"
             }
           }
         },
