@@ -168,6 +168,15 @@
           }
         },
         {
+          "title": "Product List Page",
+          "id": "product-list-page",
+          "plugins": {
+            "da": {
+              "unsafeHTML": "<div class=\"product-list-page\"><div><div>category</div><div>41</div></div><div><div>urlPath</div><div>phones</div></div></div>"
+            }
+          }
+        },
+        {
           "title": "Product Recommendations",
           "id": "product-recommendations",
           "plugins": {

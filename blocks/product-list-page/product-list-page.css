@@ -110,6 +110,20 @@
     object-fit: contain;
 }
 
+/* Zoom effect - only apply when .zoom class is present on the image element */
+.block.product-list-page .dropin-product-item-card__image.zoom {
+    overflow: hidden;
+}
+
+/* Zoom effect - only apply when .zoom class is present */
+.block.product-list-page .dropin-product-item-card__image.zoom img {
+    transition: transform 0.3s ease;
+}
+
+.block.product-list-page .dropin-product-item-card__image.zoom:hover img {
+    transform: scale(1.1);
+}
+
 .block.product-list-page .dropin-product-item-card__image-container {
     padding: 5px;
     width: auto;
@@ -120,6 +134,7 @@
     aspect-ratio: 1 / 1;
     object-fit: contain;
 }
+
 
 .dropin-product-item-card__badge {
     position: absolute;
@@ -148,6 +163,10 @@
     letter-spacing: normal;
     color: gray;
 }
+
+/* .block.product-list-page > div:nth-child(n+1):nth-child(-n+4) {
+    display: none;
+} */
 
 /* Media Queries */
 @media only screen and (min-width: 768px) {
