@@ -32,7 +32,14 @@
           "component": "richtext",
           "name": "div:nth-child(2)",
           "value": "",
-          "label": "Text",
+          "label": "Description",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "div:nth-child(3)",
+          "value": "",
+          "label": "URL Link",
           "valueType": "string"
         }
       ]
