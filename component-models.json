@@ -22,27 +22,6 @@
         "name": "robots",
         "label": "Robots",
         "description": "Index control via robots"
-      },
-      {
-        "component": "text",
-        "name": "category",
-        "label": "Category",
-        "description": "Ex. /category/sub-category"
-      },
-      {
-        "component": "text",
-        "name": "row",
-        "label": "Row"
-      },
-      {
-        "component": "text",
-        "name": "position",
-        "label": "Position"
-      },
-      {
-        "component": "text",
-        "name": "span",
-        "label": "Span"
       }
     ]
   },
@@ -85,6 +64,31 @@
             "value": "image-zoom-hover"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "category-url",
+        "label": "Category URL"
+      },
+      {
+        "component": "aem-content",
+        "name": "category-content",
+        "label": "Category Content"
+      },
+      {
+        "component": "text",
+        "name": "row",
+        "label": "Row"
+      },
+      {
+        "component": "text",
+        "name": "position",
+        "label": "Position"
+      },
+      {
+        "component": "text",
+        "name": "span",
+        "label": "Span"
       }
     ]
   },
@@ -245,6 +249,7 @@
   },
   {
     "id": "product-list-page",
+<<<<<<< HEAD
     "fields": [
       {
         "component": "text",
@@ -276,22 +281,22 @@
   },
   {
     "id": "product-recommendations",
+=======
+>>>>>>> 5b021bd (update plp)
     "fields": [
       {
         "component": "text",
         "valueType": "string",
-        "name": "div:nth-child(1)>div:nth-child(2)>p:nth-child(1)",
-        "label": "recID",
-        "value": "",
-        "required": true
+        "name": "div>div:nth-child(1)",
+        "label": "Category",
+        "value": ""
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "div:nth-child(2)>div:nth-child(2)>p:nth-child(1)",
-        "label": "currentSku",
+        "name": "div>div:nth-child(2)",
         "value": "",
-        "required": true
+        "label": "URL Path",
+        "valueType": "string"
       }
     ]
   },
