@@ -4,21 +4,23 @@ export default function decorate(block) {
   const mediaContainer = block.querySelector(':scope > div:nth-child(1)');
   const textContent = block.querySelector(':scope > div:nth-child(2)');
 
-  const paragraphs = [...textContent.querySelectorAll('p')];
-
-  const linkEl = textContent.querySelector('a');
+  const linkEl = block.querySelector('a');
   const link = linkEl ? linkEl.href.trim() : null;
 
   const picture = mediaContainer.querySelector('picture');
-  const hasText =
-    textContent.querySelector('h1, h2, h3, h4, h5, h6') ||
-    mediaContainer.querySelector('p:not(:has(picture)):not(:has(a))');
+  let hasText;
+
+  if (textContent) {
+    hasText =
+      textContent.querySelector('h1, h2, h3, h4, h5, h6') ||
+      textContent.querySelector('p:not(:has(picture)):not(:has(a))');
+  }
 
   const isVideo = link && link.match(/\.(mp4|mov|webm)$/i);
 
   // CASE 1 — VIDEO //
   if (isVideo) {
-    block.innerHTML = '';
+    mediaContainer.remove();
     const autoplay = block.classList.contains('playonload');
     const background = block.classList.contains('autoplay');
 
@@ -28,6 +30,7 @@ export default function decorate(block) {
 
   // CASE 2 — IMAGE WITH TEXT //
   if (picture && hasText) {
+    mediaContainer.remove();
     block.classList.add('mpb-has-text');
     const anchor = document.createElement('a');
     anchor.href = link;
@@ -43,6 +46,8 @@ export default function decorate(block) {
 
     const textWrapper = document.createElement('div');
     textWrapper.className = 'mpb-text';
+
+    const paragraphs = [...textContent.querySelectorAll('p')];
 
     // Move all non-image content into text wrapper
     paragraphs.forEach((p) => {
