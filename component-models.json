@@ -243,7 +243,7 @@
       },
       {
         "component": "text",
-        "name": "div:nth-child(3)",
+        "name": "div:nth-child(3)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
         "value": "",
         "label": "URL Link",
         "valueType": "string"
