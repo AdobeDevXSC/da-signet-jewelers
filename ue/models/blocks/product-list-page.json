@@ -17,17 +17,12 @@
         {
           "component": "text",
           "valueType": "string",
-<<<<<<< HEAD
           "name": "div:nth-child(1)>div:nth-child(2)>p:nth-child(1)",
-=======
-          "name": "div>div:nth-child(1)",
->>>>>>> 5b021bd (update plp)
           "label": "Category",
           "value": ""
         },
         {
           "component": "text",
-<<<<<<< HEAD
           "name": "div:nth-child(2)>div:nth-child(2)>p:nth-child(1)",
           "value": "",
           "label": "URL Path",
@@ -44,12 +39,6 @@
           "label": "Use Product Badges",
           "name": "div:nth-child(4)>div:nth-child(2)>p:nth-child(1)",
           "valueType": "boolean"
-=======
-          "name": "div>div:nth-child(2)",
-          "value": "",
-          "label": "URL Path",
-          "valueType": "string"
->>>>>>> 5b021bd (update plp)
         }
       ]
     }

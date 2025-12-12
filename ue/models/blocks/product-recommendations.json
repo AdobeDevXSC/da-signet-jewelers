@@ -27,8 +27,7 @@
           "valueType": "string",
           "name": "div:nth-child(2)>div:nth-child(2)>p:nth-child(1)",
           "label": "currentSku",
-          "value": "",
-          "required": true
+          "value": ""
         }
       ]
     }
