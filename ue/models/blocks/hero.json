@@ -30,7 +30,7 @@
         },
         {
           "component": "richtext",
-          "name": "div:nth-child(2)",
+          "name": "div:nth-child(2)>div:nth-child(1)",
           "value": "",
           "label": "Text",
           "valueType": "string"
