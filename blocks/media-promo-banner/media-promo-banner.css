@@ -78,6 +78,7 @@
   align-items: center;
   padding: 4em;
   z-index: 2;
+  text-align: center;
 }
 
 .mpb-text p {

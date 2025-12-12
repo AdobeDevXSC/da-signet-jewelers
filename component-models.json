@@ -235,10 +235,17 @@
         "value": ""
       },
       {
-        "component": "text",
-        "name": "div h3",
+        "component": "richtext",
+        "name": "div:nth-child(2)",
         "value": "",
-        "label": "Title",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "div:nth-child(3)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
+        "value": "",
+        "label": "URL Link",
         "valueType": "string"
       }
     ]
