@@ -301,8 +301,6 @@ function insertPromo(block, promosData) {
   if (useProductBadges === 'true') {
     fetch('/extras/badges.json').then((badges) => {
       badges.json().then((bd) => {
-        console.log(bd.data);
-
         resultList.querySelectorAll('.dropin-product-item-card').forEach((el) => {
           if (el.classList.contains('promo-card')) return;
           const anchor = el.querySelector('.dropin-product-item-card__title a');
