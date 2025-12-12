@@ -158,6 +158,17 @@
 
 .block.product-list-page > div:nth-child(n+1):nth-child(-n+4) {
     display: none;
+.block.product-list-page .dropin-product-item-card__title {
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: normal;
+    line-height: normal;
+}
+
+.block.product-list-page .dropin-product-item-card__price .dropin-price-range span {
+    font-size: 14px;
+    letter-spacing: normal;
+    color: gray;
 }
 
 /* Media Queries */
