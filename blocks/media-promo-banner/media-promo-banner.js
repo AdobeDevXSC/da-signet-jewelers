@@ -52,6 +52,7 @@ export default function decorate(block) {
     // Move all non-image content into text wrapper
     paragraphs.forEach((p) => {
       if (p.classList.contains('button-container')) p.style.display = 'none';
+      if (p.querySelector('a.button')) p.style.display = 'none';
       if (!p.querySelector('picture')) textWrapper.append(p);
     });
     textContent.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach((h) => textWrapper.prepend(h));
