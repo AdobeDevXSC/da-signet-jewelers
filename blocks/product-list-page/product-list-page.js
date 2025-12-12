@@ -54,7 +54,6 @@ export default async function decorate(block) {
     return;
   }
 
-
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
       <div class="search__result-info"></div>
@@ -73,8 +72,8 @@ export default async function decorate(block) {
   const $productList = fragment.querySelector('.search__product-list');
   const $pagination = fragment.querySelector('.search__pagination');
 
-  useZoomViewer = block.querySelector('div:nth-child(3)>div:nth-child(2)>p:nth-child(1)').textContent;
-  useProductBadges = block.querySelector('div:nth-child(4)>div:nth-child(2)>p:nth-child(1)').textContent;
+  useZoomViewer = block.querySelector('div:nth-child(3)>div:nth-child(2)>p:nth-child(1)')?.textContent || 'false';
+  useProductBadges = block.querySelector('div:nth-child(4)>div:nth-child(2)>p:nth-child(1)')?.textContent || 'false';
 
   //block.innerHTML = '';
   block.appendChild(fragment);
@@ -317,7 +316,6 @@ function insertPromo(block, promosData) {
           }
         });
       });
-
     });
   }
 
@@ -373,8 +371,8 @@ function insertPromo(block, promosData) {
       const insertIndex = rowStartIndex + (position - 1);
 
       // Create and insert the promo card
-      const card = document.createElement("div");
-      card.className = "dropin-product-item-card promo-card";
+      const card = document.createElement('div');
+      card.className = 'dropin-product-item-card promo-card';
 
       // Store original span for resize handling
       card.dataset.originalSpan = span;
@@ -399,7 +397,6 @@ function insertPromo(block, promosData) {
         // Insert before existing item
         grid.insertBefore(card, items[insertIndex]);
       }
-
     }
   });
 
