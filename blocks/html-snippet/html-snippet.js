@@ -14,7 +14,7 @@ const loadEmbed = (block, link) => {
   block.classList.add('embed-is-loaded');
 };
 
-export default function decorate(block) { /*
+export default function decorate(block) { 
   const props = [...block.children].map((row) => row.firstElementChild);
   const appUrl = props[0].textContent;
 
@@ -24,5 +24,5 @@ export default function decorate(block) { /*
       loadEmbed(block, appUrl);
     }
   });
-  observer.observe(block); */
+  observer.observe(block); 
 }
