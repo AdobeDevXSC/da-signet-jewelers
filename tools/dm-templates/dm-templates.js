@@ -103,7 +103,7 @@ class DMTemplates extends LitElement {
           ${this.templates.map(({ name, dmUrl }) => html`
             <li class="da-group-item">
               <button class="da-group-button">
-                <img src="${dmUrl}" alt="${name}">
+                <img src="${dmUrl}" alt="${name}" class="da-group-image ${this.view}">
                 <div class="da-group-title-row">
                   <span class="da-group-title-text">${name}</span>
                   <a href="${dmUrl}" target="_blank" class="open-link" @click=${(e) => e.stopPropagation()} title="Open in new tab">
