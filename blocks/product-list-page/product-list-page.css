@@ -164,8 +164,12 @@
     color: gray;
 }
 
-.block.product-list-page > div:nth-child(n+1):nth-child(-n+3) {
+.block.product-list-page > div:nth-child(n+1):nth-child(-n+4) {
     display: none;
+}
+
+.block.product-list-page.search > div:nth-child(n+1):nth-child(-n+4) {
+    display: unset;
 }
 
 /* Media Queries */
