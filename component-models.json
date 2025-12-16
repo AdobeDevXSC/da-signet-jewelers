@@ -223,10 +223,10 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "htmlSnippetUrl",
+        "name": "div:nth-child(1)>div:nth-child(1)>p:nth-child(1)>a:nth-child(1)[href]",
         "value": "",
-        "label": "HTML Snippet URL",
-        "description": "Please provide a URL to an HTML snippet."
+        "label": "Embed URL",
+        "description": "Please provide a URL to embed an HTML snippet."
       }
     ]
   },
