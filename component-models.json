@@ -218,6 +218,19 @@
     ]
   },
   {
+    "id": "htmlsnippet",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "htmlSnippetUrl",
+        "value": "",
+        "label": "HTML Snippet URL",
+        "description": "Please provide a URL to an HTML snippet."
+      }
+    ]
+  },
+  {
     "id": "media-promo-banner",
     "fields": [
       {
