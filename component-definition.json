@@ -160,10 +160,10 @@
         },
         {
           "title": "HTML Snippet",
-          "id": "htmlsnippet",
+          "id": "html-snippet",
           "plugins": {
             "da": {
-              "unsafeHTML": "<div class=\"htmlsnippet\"></div>"
+              "unsafeHTML": "<div class=\"html-snippet\"></div>"
             }
           }
         },

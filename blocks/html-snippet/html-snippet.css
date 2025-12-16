@@ -1,13 +1,13 @@
-.htmlsnippet-container {
+.html-snippet-container {
   padding: 0;
   min-height: 500px;
 }
 
-.htmlsnippet-container > div {
+.html-snippet-container > div {
   max-width: none;
 }
 
-.htmlsnippet-wrapper {
+.html-snippet-wrapper {
   position: relative;
   padding: 0;
   margin: 0;
@@ -16,7 +16,7 @@
   height: calc(100vh - 300px);
 }
 
-.htmlsnippet.block {
+.html-snippet.block {
   position: absolute;
   margin: 0 var(--section-gutter-space);
   border: 0;
