@@ -32,6 +32,8 @@ export default async function decorate(block) {
   const plpPromosJson = '/fragments/plp-promos/query-index.json';
   const plpBannersJson = '/fragments/plp-banners/query-index.json';
 
+  if (window.location.href.includes('search?q=')) block.classList.add('search');
+
   let promosData;
   let bannersData;
 
@@ -100,7 +102,7 @@ export default async function decorate(block) {
     }).catch(() => console.error('Error searching for products'));
   } else {
     await search({
-      phrase: q || '',
+      phrase: q || config.searchterm || '',
       currentPage: page ? Number(page) : 1,
       pageSize: 8,
       sort: getSortFromParams(sort),
