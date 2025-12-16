@@ -163,7 +163,7 @@
           "id": "htmlsnippet",
           "plugins": {
             "da": {
-              "unsafeHTML": "<div class=\"html-snippet\"></div>"
+              "unsafeHTML": "<div class=\"htmlsnippet\"></div>"
             }
           }
         },
