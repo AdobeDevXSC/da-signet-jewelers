@@ -92,7 +92,7 @@ class DMTemplates extends LitElement {
   }
 
   render() {
-    const previewAllUrl = `https://da.live/app/${this.org}/${this.repo}/tools/dm-templates/dm-templates?ref=local#${this.url}`;
+    const previewAllUrl = `https://da.live/app/${this.org}/${this.repo}/tools/dm-templates/dm-templates#${this.url}`;
 
     return html`
       <div id="dm-templates">
